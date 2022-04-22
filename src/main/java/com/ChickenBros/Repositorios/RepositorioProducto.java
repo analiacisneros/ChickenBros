@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.ChickenBros.Repositorios;
 
-/**
- *
- * @author Analia
- */
-public interface RepositorioProducto {
+@Repository
+public interface RepositorioProducto extends JpaRepository<Producto, String> {
+   
+    @Query("SELECT a FROM Autor a WHERE a.nombre = :nombre")
+    public Producto buscarPorNombre(@Param("nombre") String nombre);
     
 }
