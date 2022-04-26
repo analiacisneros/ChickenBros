@@ -7,7 +7,7 @@ public class Producto {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id_pedido;
+    private String id_producto;
     private String nombre;
     private String descripcion;
     private Integer precio;
@@ -17,8 +17,8 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String id_pedido, String nombre, String descripcion, Integer precio, String imagen, Boolean habilitado) {
-        this.id_pedido = id_pedido;
+    public Producto(String id_producto, String nombre, String descripcion, Integer precio, String imagen, Boolean habilitado) {
+        this.id_producto = id_producto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -26,8 +26,8 @@ public class Producto {
         this.habilitado = habilitado;
     }
 
-    public String getId_pedido() {
-        return id_pedido;
+    public String getId_producto() {
+        return id_producto;
     }
 
 
