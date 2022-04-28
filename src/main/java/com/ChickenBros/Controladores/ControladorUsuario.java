@@ -22,7 +22,16 @@ public class UsuarioControlador {
 	public String formulario() {
 		return "form-usuario";
 	}
-
+	
+	@GetMapping("/lista")
+	public String lista(ModelMap modelo) {
+		
+		List<Usuario> todos = usuarioServ.listarTodos();
+		   
+		modelo.addAttribute("usuarios", todos);
+		
+		return "list-usuario";
+	}
 	@PostMapping("/registro")
 	public String guardar(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido,
 			@RequestParam String email, @RequestParam String clave) {
