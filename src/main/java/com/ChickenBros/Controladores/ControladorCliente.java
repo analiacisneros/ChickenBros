@@ -23,7 +23,7 @@ public class ClienteControlador {
 		
 		List<Cliente> todos = clienteServ.listarTodos();
 		
-		modelo.addAttribute("cliente", todos);
+		modelo.addAttribute("clientes", todos);
 		
 		return "list-cliente";
 	}
