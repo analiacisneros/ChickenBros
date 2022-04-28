@@ -3,19 +3,9 @@ package com.ChickenBros.Entidades;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Usuario implements Serializable {
-
-//      private static final long serialVersionUID = 6522896498689132123L;
-
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String id;
 
 	private String nombre;
 
