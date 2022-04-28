@@ -9,20 +9,20 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Cliente {
     
-    	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-        private String idCliente;
+//    	@Id
+//	@GeneratedValue(generator = "uuid")
+//	@GenericGenerator(name = "uuid", strategy = "uuid2")
+//        private String idCliente;
         private String direccion;
         private Long telefono;
 
-    public String getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
-    }
+//    public String getIdCliente() {
+//        return idCliente;
+//    }
+//
+//    public void setIdCliente(String idCliente) {
+//        this.idCliente = idCliente;
+//    }
 
     public String getDireccion() {
         return direccion;
