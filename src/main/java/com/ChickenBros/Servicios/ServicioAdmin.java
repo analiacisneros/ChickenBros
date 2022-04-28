@@ -18,16 +18,21 @@ public class AdminServicio extends Usuario{
 	@Transactional
 	public Admin guardar(String id) throws Exception {
             Admin entidad = new Admin();
-            
-            entidad.setIdAdmin(id);
+            Admin entidad = new Admin();          
+//            entidad.setIdAdmin(id);
             return adminRepo.save(entidad);
 	}
 
-	@Transactional(readOnly = true)
-	public List<Admin> listarId(String idAdmin) {
-            return adminRepo.buscarId(idAdmin);
-	}
+//	@Transactional(readOnly = true)
+//	public List<Admin> listarId(String idAdmin) {
+//            return adminRepo.buscarId(idAdmin);
+//	}
 
+	@Transactional(readOnly = true)
+	public List<Admin> listarTodos() {
+            return adminRepo.findAll();
+	}
+	
 	@Transactional(readOnly = true)
 	public List<Admin> listarTodos() {
             return adminRepo.findAll();
