@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/Admin")
+@RequestMapping("/admin")
 public class AdminControlador {
 
 	@Autowired
@@ -23,7 +23,7 @@ public class AdminControlador {
 		
 		List<Admin> todos = adminServ.listarTodos();
 		
-		modelo.addAttribute("Admin", todos);
+		modelo.addAttribute("admins", todos);
 		
 		return "list-admin";
 	}
