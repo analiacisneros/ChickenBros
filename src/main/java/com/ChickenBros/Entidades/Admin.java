@@ -9,17 +9,17 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Admin {
-        
-    	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-        private String idAdmin;
+	
+//    	@Id
+//	@GeneratedValue(generator = "uuid")
+//	@GenericGenerator(name = "uuid", strategy = "uuid2")
+//
 
-    public String getIdAdmin() {
-        return idAdmin;
-    }
-
-    public void setIdAdmin(String idAdmin) {
-        this.idAdmin = idAdmin;
-    }        
+//    public String getIdAdmin() {
+//        return idAdmin;
+//    }
+//
+//    public void setIdAdmin(String idAdmin) {
+//        this.idAdmin = idAdmin;
+//    }  
 }
