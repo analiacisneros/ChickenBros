@@ -33,9 +33,14 @@ public class ServicioProducto {
         }
     }
     
+    
+    
+    
     public List<Producto> listarProducto(){
          return productoRepositorio.findAll();     
     }
+    
+    
     
     
    @Transactional() 
@@ -52,6 +57,9 @@ public class ServicioProducto {
     
       productoRepositorio.save(productoNuevo);
     }
+    
+    
+    
     
     @Transactional()
     public void modificarProducto(String id, String nombre, String descripcion, Integer precio, String imagen) throws Exception {
@@ -72,6 +80,9 @@ public class ServicioProducto {
         }
     }
     
+    
+    
+    
     @Transactional()
     public void eliminarProducto(String id) throws Exception {
      Optional <Producto> respuesta = productoRepositorio.findById(id);
@@ -82,5 +93,13 @@ public class ServicioProducto {
         }
     }
     
+    
+    @Transactional
+    public Producto getById(String id) throws Exception{
+        if (productoRepositorio.getById(id) == null) {
+            throw new Exception("No se pudo encontrar la editorial con ese ID.");
+        }
+        return productoRepositorio.getById(id);
+    }
     
 }
