@@ -1,9 +1,9 @@
 package com.ChickenBros.Servicios;
 
-import Entidad.Admin;
-import Entidad.Usuario;
-import Entidad.Enum.Rol;
-import Entidad.Repocitorios.AdminRepositorio;
+import com.ChickenBros.Entidades.Admin;
+import com.ChickenBros.Entidades.Usuario;
+import com.ChickenBros.Entidades.Enum.Rol;
+import com.ChickenBros.Entidades.Repocitorios.AdminRepositorio;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
