@@ -1,7 +1,7 @@
 package com.ChickenBros.Controladores;
 
-import Entidad.Cliente;
-import Servicio.ClienteServicio;
+import com.ChickenBros.Entidades.Cliente;
+import com.ChickenBros.Servicios.ClienteServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
