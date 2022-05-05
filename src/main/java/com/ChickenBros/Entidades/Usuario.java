@@ -1,7 +1,6 @@
 
 package com.ChickenBros.Entidades;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,19 +9,19 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Usuario {
 
-        @Id
+   @Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-        private String id;
+        protected String id;
+        
+	protected String nombre;
+
+	protected String apellido;
+
+	protected String email;
 	
-	private String nombre;
-
-	private String apellido;
-
-	private String email;
-	
-	private String clave;
-
+	protected String clave;
+       
     public String getId() {
         return id;
     }
