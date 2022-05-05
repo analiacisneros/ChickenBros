@@ -1,7 +1,7 @@
 package com.ChickenBros.Controladores;
 
-import Entidad.Admin;
-import Servicio.AdminServicio;
+import com.ChickenBros.Entidades.Admin;
+import com.ChickenBros.Servicios.AdminServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
