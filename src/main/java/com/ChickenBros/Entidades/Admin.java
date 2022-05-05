@@ -1,7 +1,7 @@
 
 package com.ChickenBros.Entidades;
 
-import com.Pollo.demo.src.Enum.Rol;
+import com.ChickenBros.Enum.Rol;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
