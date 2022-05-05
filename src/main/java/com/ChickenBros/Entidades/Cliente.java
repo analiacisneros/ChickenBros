@@ -7,7 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Entity
-public class Cliente {
+public class Cliente extends Usuario {
     
         private String direccion;
         private Long telefono;
