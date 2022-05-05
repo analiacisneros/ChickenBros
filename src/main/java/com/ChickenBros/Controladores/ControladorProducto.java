@@ -25,7 +25,7 @@ public class ControladorProducto {
     ServicioProducto servProducto;
     
  //   LISTADO DE PRODUCTOS
-    @GetMapping("/listadoProductos")
+    @GetMapping("/listado")
     public String productos(ModelMap modelo) {
         List<Producto> listaProductos = servProducto.listarProducto();
         modelo.put("listaProducto", listaProductos);
