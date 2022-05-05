@@ -1,9 +1,9 @@
 
 package com.ChickenBros.Servicios;
 
-import com.Pollo.demo.src.Entidad.Cliente;
-import com.Pollo.demo.src.Enum.Rol;
-import com.Pollo.demo.src.Repositorio.ClienteRepositorio;
+import com.ChickenBros.Entidades.Cliente;
+import com.ChickenBros.Enum.Rol;
+import com.ChickenBros.Repositorio.ClienteRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Autowired
+@Service
+public class ServicioCliente implements UserDetailsService {
+	@Autowired
 	private ClienteRepositorio clienteRepo;
 
 	@Transactional
