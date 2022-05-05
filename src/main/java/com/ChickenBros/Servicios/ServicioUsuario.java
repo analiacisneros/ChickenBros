@@ -1,8 +1,8 @@
 package com.ChickenBros.Servicios;
 
-import com.Pollo.demo.src.Entidad.Cliente;
-import com.Pollo.demo.src.Entidad.Usuario;
-import com.Pollo.demo.src.Repositorio.UsuarioRepositorio;
+import com.ChickenBros.Entidades.Cliente;
+import com.ChickenBros.Entidades.Usuario;
+import com.ChickenBros.Repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +13,29 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
-public class UsuarioServicio {
+public class ServicioUsuario implements UserDetailsService   {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepo;
 
 	@Transactional
-	public Usuario guardar(String nombre, String apellido, String email, String clave) throws Exception {
+	public Usuario guardar(String nombre, String apellido, String email, String clave, String clave2) throws Exception {
 
-		validar(nombre, apellido, email, clave);
+		validar(nombre, apellido, email, clave, clave2);
 
 		Usuario entidad = new Usuario();
 
@@ -39,7 +52,7 @@ public class UsuarioServicio {
                 return usuarioRepo.findAll();
 	}
 
-	public void validar(String nombre, String apellido, String email, String clave) throws Exception {
+	public void validar(String nombre, String apellido, String email, String clave, String clave2) throws Exception {
 
 		if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
 			throw new Exception("Debe tener un nombre valido");
@@ -61,24 +74,24 @@ public class UsuarioServicio {
 		if (clave == null || clave.isEmpty() || clave.contains("  ") || clave.length() < 8 || clave.length() > 12) {
 			throw new Exception("Debe tener una clave valida");
 		}
+                if (clave.equals(clave2)) {
+                throw new Error("Las claves no son iguales");
+            }
 	}
 
-//	@Override
-//	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//		
-//		Usuario user = usuarioRepo.buscarPorEmail(email);
-//		
-//		if (user != null) {
-//			List<GrantedAuthority> permissions = new ArrayList<>();
-//			GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + user.getRol().toString());
-//			permissions.add(p);
-//			ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//			HttpSession session = attr.getRequest().getSession(true);
-//			session.setAttribute("usuario", user);
-//			return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getClave(),
-//					permissions);
-//		}
-//		return null;
-//
-//	}
-}
+    @Override
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+  		Usuario user = usuarioRepo.getById(id);
+		
+		if (user != null) {
+			List<GrantedAuthority> permisos = new ArrayList<>();
+                        
+			GrantedAuthority p = new SimpleGrantedAuthority("CLIENTE");
+			permisos.add(p);
+                        
+                        User cliente = new User(user.getEmail(), user.getClave(), permisos);
+                        return cliente;
+		} else{                
+		return null;}
+
+}}
