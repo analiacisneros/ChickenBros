@@ -1,17 +1,18 @@
 
 package com.ChickenBros.Entidades;
 
-import com.ChickenBros.Enum.Rol;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-
 @Entity
-public class Admin extends Usuario {
-	
-    @Enumerated(EnumType.STRING)
-    private Rol rol;   
+public class Cliente extends Usuario {
+    
+        private String direccion;
+        private Long telefono;
+        
+	    @Enumerated(EnumType.STRING)
+	    private Rol rol;
 
     public Rol getRol() {
         return rol;
@@ -60,5 +61,20 @@ public class Admin extends Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
-}
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Long getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
+    }
+}
