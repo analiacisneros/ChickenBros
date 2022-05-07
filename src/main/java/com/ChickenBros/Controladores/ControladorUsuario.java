@@ -1,8 +1,8 @@
 
 package com.ChickenBros.Controladores;
 
-import com.ChickenBros.Servicios.UsuarioServicio;
-Import com.ChickenBors.Etidades.Usuario
+import com.ChickenBros.Entidades.Usuario;
+import com.ChickenBros.Servicios.ServicioUsuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,10 +38,10 @@ public class UsuarioControlador {
         //@PreAuthorize("hasAnyRole('ADMIN')") se usa para limitar el acceso
 	@PostMapping("/registro")
 	public String guardar(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido,
-			@RequestParam String email, @RequestParam String clave, @RequestParam String clave2) throws Exception {
+			@RequestParam String email, @RequestParam String direccion, @RequestParam long tel, @RequestParam String clave, @RequestParam String clave2) throws Exception {
 
         try{
-             usuarioServ.guardar(nombre, apellido, email, clave, clave2);
+             usuarioServ.guardar(nombre, apellido, email, direccion, tel, clave, clave2);
         }catch (Error ex){
                 modelo.put("error", ex.getMessage());
                 modelo.put("nombre", nombre);
