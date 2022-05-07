@@ -1,4 +1,3 @@
-
 package com.ChickenBros.Entidades;
 
 import javax.persistence.Entity;
