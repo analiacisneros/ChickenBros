@@ -1,10 +1,8 @@
 package com.ChickenBros.Servicios;
 
 import com.ChickenBros.Entidades.Admin;
-import com.ChickenBros.Entidades.Usuario;
-import com.ChickenBros.Enum.Rol;
-import com.ChickenBros.Repocitorios.AdminRepositorio;
-import java.util.List;
+import com.ChickenBros.Entidades.Rol;
+import com.ChickenBros.Repositorios.AdminRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AdminServicio implements UserDetailsService {
+public class AdminServicio implements UserDetailsService{
 
     	@Autowired
 	private AdminRepositorio adminRepo;
