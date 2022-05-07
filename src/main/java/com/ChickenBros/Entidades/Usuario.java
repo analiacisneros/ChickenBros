@@ -1,7 +1,10 @@
 
+
 package com.ChickenBros.Entidades;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
@@ -21,7 +24,19 @@ public class Usuario {
 	protected String email;
 	
 	protected String clave;
-       
+                
+	@Enumerated(EnumType.STRING)
+	private Rol rol;
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+        
+        
     public String getId() {
         return id;
     }
