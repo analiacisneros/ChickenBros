@@ -1,7 +1,7 @@
 package com.ChickenBros.Controladores;
 
 import com.ChickenBros.Entidades.Cliente;
-import com.ChickenBros.Servicios.ClienteServicio;
+import com.ChickenBros.Servicios.ServicioCliente;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ClienteControlador {
 
 	@Autowired
-	private ClienteServicio clienteServ;
+	private ServicioCliente clienteServ;
 	
 	@GetMapping("/lista")
 	public String lista(ModelMap modelo) {
@@ -34,10 +34,11 @@ public class ClienteControlador {
 	}
 	
 	@PostMapping("/registro")
-	public String guardar(ModelMap modelo, @RequestParam String nombre, @RequestParam String direccion, @RequestParam Long tel) {
+	public String guardar(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido,
+			@RequestParam String email, @RequestParam String direccion, @RequestParam Long tel, @RequestParam String clave, @RequestParam String clave2) {
 		
 		try {
-			clienteServ.guardar(tel, direccion);
+			clienteServ.guardar(nombre, apellido, email, clave, clave2, email, tel, direccion);
 			
 			modelo.put("exito", "registro exitoso");
 			return "form-cliente";
