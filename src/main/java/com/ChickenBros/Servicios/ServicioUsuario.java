@@ -1,18 +1,9 @@
 package com.ChickenBros.Servicios;
 
+import com.ChickenBros.Entidades.Rol;
 import com.ChickenBros.Entidades.Cliente;
 import com.ChickenBros.Entidades.Usuario;
 import com.ChickenBros.Repositorios.UsuarioRepositorio;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +24,18 @@ public class ServicioUsuario implements UserDetailsService   {
 	private UsuarioRepositorio usuarioRepo;
 
 	@Transactional
-	public Usuario guardar(String nombre, String apellido, String email, String clave, String clave2) throws Exception {
+	public Usuario guardar(String nombre, String apellido, String email, String direccion, Long tel, String clave, String clave2) throws Exception {
 
 		validar(nombre, apellido, email, clave, clave2);
 
-		Usuario entidad = new Usuario();
+		Cliente entidad = new Cliente();
 
 		entidad.setNombre(nombre);
 		entidad.setApellido(apellido);
 		entidad.setEmail(email);
+                entidad.setRol(Rol.CLIENTE);
+                entidad.setDireccion(direccion);
+                entidad.setTelefono(tel);
 		entidad.setClave(new BCryptPasswordEncoder().encode(clave));
 
 		return usuarioRepo.save(entidad);
