@@ -1,9 +1,8 @@
-
 package com.ChickenBros.Servicios;
 
 import com.ChickenBros.Entidades.Cliente;
-import com.ChickenBros.Enum.Rol;
-import com.ChickenBros.Repositorio.ClienteRepositorio;
+import com.ChickenBros.Entidades.Rol;
+import com.ChickenBros.Repositorios.ClienteRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +23,7 @@ public class ServicioCliente implements UserDetailsService {
 	private ClienteRepositorio clienteRepo;
 
 	@Transactional
-	public Cliente guardar(String nombre, String apellido, String email, String clave, String rol, Long tel, String direccion) throws Exception {
+	public Cliente guardar(String nombre, String apellido, String email, String clave,  String clave2, String rol, Long tel, String direccion) throws Exception {
 
                 validar(tel, direccion, rol);
                 
@@ -41,7 +40,7 @@ public class ServicioCliente implements UserDetailsService {
                 return clienteRepo.save(entidad);
 	}
 
-        public void modificarCliente (String id,String nombre, String apellido, String email, String clave,Long tel, String direccion) throws Exception {
+        public void modificarCliente (String id,String nombre, String apellido, String email, String clave, String clave2,Long tel, String direccion) throws Exception {
                         
             validar(tel, direccion, id);
             
