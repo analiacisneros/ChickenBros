@@ -34,10 +34,10 @@ public class AdminControlador {
 	}
 	
 	@PostMapping("/registro")
-	public String guardar(ModelMap modelo, @RequestParam String id) {
+	public String guardar(ModelMap modelo, @RequestParam String nombre,@RequestParam  String apellido,@RequestParam  String email,@RequestParam  String clave) {
 		
 		try {
-			adminServ.guardar(id);
+			adminServ.guardar(nombre, apellido, email, clave);
 			
 			modelo.put("exito", "registro exitoso");
 			return "form-admin";
@@ -47,3 +47,4 @@ public class AdminControlador {
 	}
 }
 	
+
