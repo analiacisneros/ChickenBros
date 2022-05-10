@@ -1,27 +1,22 @@
-
 package com.ChickenBros.Entidades;
 
-import com.ChickenBros.Enum.Rol;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class Cliente extends Usuario {
+public class Cliente  {
     
+        @Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+        private String id;
+        private String nombre;
+        private String apellido;
         private String direccion;
         private Long telefono;
-        
-	    @Enumerated(EnumType.STRING)
-	    private Rol rol;
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
+        private String clave;
 
     public String getId() {
         return id;
@@ -47,22 +42,6 @@ public class Cliente extends Usuario {
         this.apellido = apellido;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
     public String getDireccion() {
         return direccion;
     }
@@ -78,4 +57,13 @@ public class Cliente extends Usuario {
     public void setTelefono(Long telefono) {
         this.telefono = telefono;
     }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
 }

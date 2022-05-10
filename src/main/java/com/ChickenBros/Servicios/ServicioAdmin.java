@@ -1,8 +1,6 @@
 package com.ChickenBros.Servicios;
 
 import com.ChickenBros.Entidades.Admin;
-import com.ChickenBros.Entidades.Usuario;
-import com.ChickenBros.Enum.Rol;
 import com.ChickenBros.Repocitorios.AdminRepositorio;
 import java.util.List;
 import java.util.ArrayList;
@@ -20,32 +18,33 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AdminServicio implements UserDetailsService {
+public class AdminServicio { //implements UserDetailsService {
 
     	@Autowired
 	private AdminRepositorio adminRepo;
 
 	@Transactional
-	public Admin guardar(String nombre, String apellido, String email, String clave) throws Exception {
-            Admin entidad = new Admin();   
+	public Admin guardar(String nombre, String email, String clave) throws Exception {
+            
+                Admin entidad = new Admin();   
 
 		entidad.setNombre(nombre);
-		entidad.setApellido(apellido);
 		entidad.setEmail(email);
 		entidad.setClave(new BCryptPasswordEncoder().encode(clave));
-		entidad.setRol(Rol.ADMIN);
             
             return adminRepo.save(entidad);
 	}
         
-        public void modificarAdmin (String id,String nombre, String apellido, String email, String clave) throws Exception {
-                                 
+        public void modificarAdmin (String nombre, String email, String clave) throws Exception {
+             
+            validar(nombre, email, clave, clave);
+            
             Optional<Admin> respuesta = adminRepo.findById(id);
+            
             if(respuesta.isPresent()){
             Admin entidad = respuesta.get();
             
                 entidad.setNombre(nombre);
-		entidad.setApellido(apellido);
 		entidad.setEmail(email);
 		entidad.setClave(new BCryptPasswordEncoder().encode(clave));
 
@@ -64,20 +63,41 @@ public class AdminServicio implements UserDetailsService {
             return adminRepo.findAll();
 	}
 
-    @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        		
-		Admin admin = adminRepo.getById(id);
-		
-		if (admin != null) {
-			List<GrantedAuthority> permisos = new ArrayList<>();
-                        
-			GrantedAuthority p = new SimpleGrantedAuthority("ADMIN");
-			permisos.add(p);
-                        
-                        User cliente = new User(admin.getEmail(), admin.getClave(), permisos);
-                        return cliente;
-		} else{                
-		return null;}
-    }
+	public void validar(String nombre,  String email, String clave, String clave2) throws Exception {
+
+		if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
+			throw new Exception("Debe tener un nombre valido");
+		}
+
+		if (email == null || email.isEmpty() || email.contains("  ")) {
+			throw new Exception("Debe tener un email valido");
+		}
+
+		if (adminRepo.buscarPorEmail(email) != null) {
+			throw new Exception("El Email ya esta en uso");
+		}
+
+		if (clave == null || clave.isEmpty() || clave.contains("  ") || clave.length() < 8 || clave.length() > 12) {
+			throw new Exception("Debe tener una clave valida");
+		}
+                if (clave.equals(clave2)) {
+                throw new Error("Las claves no son iguales");
+            }
+	}
+//    @Override
+//    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+//        		
+//		Admin admin = adminRepo.getById(id);
+//		
+//		if (admin != null) {
+//			List<GrantedAuthority> permisos = new ArrayList<>();
+//                        
+//			GrantedAuthority p = new SimpleGrantedAuthority("ADMIN");
+//			permisos.add(p);
+//                        
+//                        User cliente = new User(admin.getEmail(), admin.getClave(), permisos);
+//                        return cliente;
+//		} else{                
+//		return null;}
+//    }
 }

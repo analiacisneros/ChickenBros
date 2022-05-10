@@ -2,7 +2,6 @@
 package com.ChickenBros.Servicios;
 
 import com.ChickenBros.Entidades.Cliente;
-import com.ChickenBros.Enum.Rol;
 import com.ChickenBros.Repositorio.ClienteRepositorio;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +18,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ServicioCliente implements UserDetailsService {
-	@Autowired
+public class ServicioCliente { //implements UserDetailsService {
+	
+    @Autowired
 	private ClienteRepositorio clienteRepo;
 
 	@Transactional
-	public Cliente guardar(String nombre, String apellido, String email, String clave, String rol, Long tel, String direccion) throws Exception {
+	public Cliente guardar(String nombre, String apellido, String email, String direccion, String clave, Long tel) throws Exception {
 
-                validar(tel, direccion, rol);
+                validar(nombre, apellido, direccion, email, clave, clave);
                 
                 Cliente entidad = new Cliente();
                     
@@ -34,7 +34,6 @@ public class ServicioCliente implements UserDetailsService {
 		entidad.setApellido(apellido);
 		entidad.setEmail(email);
 		entidad.setClave(new BCryptPasswordEncoder().encode(clave));
-		entidad.setRol(Rol.CLIENTE);
                 entidad.setDireccion(direccion);
                 entidad.setTelefono(tel);
                 
@@ -43,9 +42,10 @@ public class ServicioCliente implements UserDetailsService {
 
         public void modificarCliente (String id,String nombre, String apellido, String email, String clave,Long tel, String direccion) throws Exception {
                         
-            validar(tel, direccion, id);
+            validar(nombre, apellido, direccion, email, clave, clave);
             
             Optional<Cliente> respuesta = clienteRepo.findById(id);
+           
             if(respuesta.isPresent()){
             Cliente entidad = respuesta.get();
             
@@ -70,34 +70,50 @@ public class ServicioCliente implements UserDetailsService {
                 return clienteRepo.findAll();
 	}
 
-	public void validar(Long tel, String direccion, String rol) throws Exception {
-		
-                if (tel == null) {
-			throw new Exception("Telefono invalido");
+	public void validar(String nombre,String apellido, String direccion, String email, String clave, String clave2) throws Exception {
+
+		if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
+			throw new Exception("Debe tener un nombre valido");
 		}
-		
-		if (direccion == null || direccion.isEmpty() || direccion.contains("  ")) {
-			throw new Exception("Direccion invalida");
+
+                if (apellido == null || nombre.isEmpty() || nombre.contains("  ")) {
+			throw new Exception("Debe tener un nombre valido");
 		}
-                if (!Rol.ADMIN.toString().equals(rol) && !Rol.CLIENTE.toString().equals(rol)) {
-			throw new Exception("Debe tener rol valido");
+
+                if (direccion == null || nombre.isEmpty() || nombre.contains("  ")) {
+			throw new Exception("Debe tener un nombre valido");
 		}
+
+		if (email == null || email.isEmpty() || email.contains("  ")) {
+			throw new Exception("Debe tener un email valido");
 		}
+
+		if (clienteRepo.buscarPorEmail(email) != null) {
+			throw new Exception("El Email ya esta en uso");
+		}
+
+		if (clave == null || clave.isEmpty() || clave.contains("  ") || clave.length() < 8 || clave.length() > 12) {
+			throw new Exception("Debe tener una clave valida");
+		}
+                if (clave.equals(clave2)) {
+                throw new Error("Las claves no son iguales");
+            }
+	}
         
-        @Override
-        public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-		
-		Cliente user = clienteRepo.getById(id);
-		
-		if (user != null) {
-			List<GrantedAuthority> permisos = new ArrayList<>();
-                        
-			GrantedAuthority p = new SimpleGrantedAuthority("CLIENTE");
-			permisos.add(p);
-                        
-                        User cliente = new User(user.getEmail(), user.getClave(), permisos);
-                        return cliente;
-		} else{                
-		return null;}
-}
+//        @Override
+//        public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+//		
+//		Cliente user = clienteRepo.getById(id);
+//		
+//		if (user != null) {
+//			List<GrantedAuthority> permisos = new ArrayList<>();
+//                        
+//			GrantedAuthority p = new SimpleGrantedAuthority("CLIENTE");
+//			permisos.add(p);
+//                        
+//                        User cliente = new User(user.getEmail(), user.getClave(), permisos);
+//                        return cliente;
+//		} else{                
+//		return null;}
+//}
 }
